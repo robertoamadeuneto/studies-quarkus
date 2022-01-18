@@ -1,0 +1,49 @@
+version: "3.8"
+services:
+  you-meal_keycloak:
+    container_name: you-meal_keycloack
+    image: jboss/keycloak:16.1.0
+    environment:
+      KEYCLOAK_USER: you-meal
+      KEYCLOAK_PASSWORD: you-meal
+    ports:
+      - "8180:8080"
+    you-meal_jaeger:
+      container_name: you-meal_jaeger
+      image: jaegertracing/all-in-one:1.29
+      ports:
+        - "5775:5775/udp"
+        - "6831:6831/udp"
+        - "6832:6832/udp"
+        - "5778:5778"
+        - "16686:16686"
+        - "14250:14250"
+        - "14268:14268"
+        - "14269:14269"
+        - "9411:9411"
+    you-meal_prometheus:
+      container_name: you-meal_prometheus
+      image: you-meal_prometheus
+      ports:
+        - "9090:9090"
+    you-meal_grafana:
+      container_name: you-meal_grafana
+      image: grafana/grafana:8.3.3
+      ports:
+        - "3000:3000"
+  you-meal_registration_postgres:
+    container_name: you-meal_registration_postgres
+    image: postgres:14.1
+    environment:
+      POSTGRES_USER: you-meal_registration
+      POSTGRES_PASSWORD: you-meal_registration
+    ports:
+    - "5432:5432"
+  you-meal_marketplace_postgres:
+    container_name: you-meal_marketplace_postgres
+    image: postgres:14.1
+    environment:
+      POSTGRES_USER: you-meal_marketplace
+      POSTGRES_PASSWORD: you-meal_marketplace
+    ports:
+      - "5433:5432"
