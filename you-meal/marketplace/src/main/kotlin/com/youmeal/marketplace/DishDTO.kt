@@ -2,10 +2,9 @@ package com.youmeal.marketplace
 
 import java.math.BigDecimal
 
-data class Dish(
+data class DishDTO(
     var id: Long,
     var name: String,
     var description: String,
-    var restaurant: Restaurant,
     var price: BigDecimal
 )
