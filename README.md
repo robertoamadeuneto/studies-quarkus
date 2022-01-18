@@ -1,6 +1,6 @@
 # Studies - Quarkus
 
-> This is a multi-module Gradle project for study purposes.
+> This repository contains a multi-module Gradle project called "you-meal" created for study purposes.
 
 The main goal of this project is to test Quarkus, its functioning and its extensions.
 
