@@ -18,5 +18,5 @@ With this in mind, none of the items listed below is an objective of this projec
 
 --- 
 
-This project was created based on the Udemy course [Desenvolvimento Web com Quarkus](https://www.udemy.com/course/des-web-quarkus/),
-but was implemented here using [Kotlin](https://kotlinlang.org/).
+This project was created based on the Udemy course [Desenvolvimento Web com Quarkus](https://www.udemy.com/course/des-web-quarkus/).
+Unlike the course, this project uses Kotlin instead of Java and Gradle instead of Maven.
