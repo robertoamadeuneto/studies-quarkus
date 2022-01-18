@@ -1,4 +1,4 @@
-package com.youmeal
+package com.youmeal.marketplace
 
 import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured.given

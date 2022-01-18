@@ -1,4 +1,4 @@
-package com.youmeal
+package com.youmeal.marketplace
 
 import javax.ws.rs.GET
 import javax.ws.rs.Path
