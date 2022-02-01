@@ -1,4 +1,4 @@
-package com.youmeal.marketplace
+package com.youmeal.marketplace.entities
 
 data class Cart(
     var user: String,

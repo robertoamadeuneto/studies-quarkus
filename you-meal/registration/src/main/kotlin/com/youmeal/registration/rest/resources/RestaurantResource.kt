@@ -10,7 +10,11 @@ import org.eclipse.microprofile.openapi.annotations.enums.SecuritySchemeType
 import org.eclipse.microprofile.openapi.annotations.security.OAuthFlow
 import org.eclipse.microprofile.openapi.annotations.security.OAuthFlows
 import org.eclipse.microprofile.openapi.annotations.security.SecurityScheme
+import org.eclipse.microprofile.reactive.messaging.Channel
+import org.eclipse.microprofile.reactive.messaging.Emitter
 import javax.annotation.security.RolesAllowed
+import javax.inject.Inject
+import javax.json.bind.JsonbBuilder
 import javax.transaction.Transactional
 import javax.validation.Valid
 import javax.ws.rs.DELETE
@@ -35,6 +39,10 @@ import javax.ws.rs.core.Response
 )
 class RestaurantResource {
 
+    @Inject
+    @Channel("restaurants")
+    lateinit var emitter: Emitter<String>
+
     @GET
     @Counted(name = "RestaurantResource.listAll() quantity")
     @SimplyTimed(name = "RestaurantResource.listAll() simple search time")
@@ -46,6 +54,8 @@ class RestaurantResource {
     fun create(@Valid dto: RestaurantDTO): Response {
         val entity = RestaurantMapper.INSTANCE.mapToEntity(dto)
         entity.persist()
+
+        emitter.send(JsonbBuilder.create().toJson(entity))
 
         return Response
             .status(Response.Status.CREATED)

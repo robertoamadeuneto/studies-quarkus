@@ -31,6 +31,15 @@ services:
     image: grafana/grafana:8.3.3
     ports:
       - "3000:3000"
+  you-meal_artemis:
+    container_name: you-meal_artemis
+    image: vromero/activemq-artemis:2.16.0
+    environment:
+      ARTEMIS_USERNAME: you-meal
+      ARTEMIS_PASSWORD: you-meal
+    ports:
+      - "8161:8161"
+      - "61616:61616"
   you-meal_registration_postgres:
     container_name: you-meal_registration_postgres
     image: postgres:14.1
