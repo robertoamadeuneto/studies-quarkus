@@ -56,3 +56,12 @@ services:
       POSTGRES_PASSWORD: you-meal_marketplace
     ports:
       - "5433:5432"
+  you-meal_order_mongodb:
+    container_name: you-meal_order_mongodb
+    image: mongo:5.0.6
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: you-meal_order
+      MONGO_INITDB_ROOT_PASSWORD: you-meal_order
+      MONGO_INITDB_DATABASE: you-meal_order
