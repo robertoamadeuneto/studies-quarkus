@@ -40,6 +40,54 @@ services:
     ports:
       - "8161:8161"
       - "61616:61616"
+  you-meal_zookeeper:
+    container_name: you-meal_zookeper
+    image: debezium/zookeeper:1.9
+    ports:
+      - "2181:2181"
+      - "2888:2888"
+      - "3888:3888"
+  you-meal_kafka:
+    container_name: you-meal_kafka
+    image: debezium/kafka:1.9
+    environment:
+      ZOOKEEPER_CONNECT: you-meal_zookeeper:2181
+    ports:
+      - "9092:9092"
+    links:
+      - you-meal_zookeeper
+  you-meal_kafdrop:
+    container_name: you-meal_kafdrop
+    image: obsidiandynamics/kafdrop:3.24.0
+    environment:
+      KAFKA_BROKERCONNECT: you-meal_kafka:9092
+    ports:
+      - "9000:9000"
+    depends_on:
+      - you-meal_kafka
+  you-meal_elasticsearch:
+    container_name: you-meal_elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.2
+    environment:
+      - node.name=es01
+      - cluster.name=es-docker-cluster
+      - cluster.initial_master_modes=es01
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS= -Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    ulimits:
+      memLock:
+        soft: -1
+        hard: -1
+  you-meal_kibana:
+    container_name: you-meal_kibana
+    image: docker.elastic.co/kibana/kibana:7.6.2
+    environment:
+      ELASTICSEARCH_HOSTS: http://localhost:9200
+    ports:
+      - "5601:5601"
   you-meal_registration_postgres:
     container_name: you-meal_registration_postgres
     image: postgres:14.1
@@ -59,9 +107,9 @@ services:
   you-meal_order_mongodb:
     container_name: you-meal_order_mongodb
     image: mongo:5.0.6
-    ports:
-      - "27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: you-meal_order
       MONGO_INITDB_ROOT_PASSWORD: you-meal_order
       MONGO_INITDB_DATABASE: you-meal_order
+    ports:
+      - "27017:27017"

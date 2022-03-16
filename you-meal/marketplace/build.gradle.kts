@@ -14,6 +14,7 @@ val quarkusPlatformArtifactId: String by project
 val quarkusPlatformVersion: String by project
 
 dependencies {
+    implementation("io.quarkus:quarkus-smallrye-reactive-messaging-kafka")
     implementation("io.quarkus:quarkus-smallrye-reactive-messaging-amqp")
     implementation("io.quarkus:quarkus-resteasy-mutiny")
     implementation("io.quarkus:quarkus-reactive-pg-client")
